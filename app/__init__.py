@@ -7,6 +7,15 @@ app.config['SQLALCHEMY_ECHO'] = True
 
 db.init_app(app)
 
+
+@app.context_processor
+def register_pledges():
+  pledges = ['Albert', 'Amy', 'Andre', 'Betty', 'Chris', 'Daniel', 'Gabe', 'Julia', 'Kai', 'Ling', 'Matt', 'Nicole']
+  return dict(pledges=pledges)
+
+
+### ---- ROUTES ---- ###
+
 @app.route('/testdb')
 def testdb():
   if db.session.query('1').from_statement('Select 1').all():
@@ -20,3 +29,10 @@ def get_all_records():
   Returns all merits in the database for viewing.
   """
   return render_template('layout.html')
+
+@app.route('/new')
+def new_request():
+  """
+  Renders the HTML page for a new merit request
+  """
+  return render_template('new_request.html')
