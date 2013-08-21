@@ -1,0 +1,22 @@
+.form-body {
+  margin-top: 95px;
+}
+
+.form-body button {
+  margin-top: 15px;
+}
+
+#justification {
+  margin-top: 35px;
+}
+
+.form-body label {
+  margin-top: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#submit-button {
+  margin-top: 25px;
+  margin-left: 20px;
+}

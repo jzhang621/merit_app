@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block head %}
+  {{ super() }}
+  <link href="../static/css/register_pledge.css" rel="stylesheet">
+  <script src="../static/js/register_pledge.js"></script>
+{% endblock %}
+
+{% block title %}{{ page_title }}{% endblock title %}
+
+{% block page %}
+<form> 
+  <fieldset>
+    <div class="form-body">
+
+      <div class="span4 offset4">
+
+        <label>Pledge Name</label>
+        <input type="text" id="pledge-name">
+
+        <label>Major</label>
+        <input type="text" id="major">
+
+        <label>Year</label>
+        <input type="text" id="year">
+
+        <div id="submit-button-div">
+          <button id="submit-button" class="btn btn-primary">
+            Submit
+          </button>
+        </div>
+
+        <div id="commit-message">
+          <div></div>
+        </div>
+
+      </div>
+    </div>
+  </fieldset>
+</form> 
+{% endblock %}
+
+{% block javascript %}
+<script>
+  $(document).ready( function() {
+    registerPledge(); 
+  });
+</script>
+{% endblock %}

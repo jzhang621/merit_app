@@ -37,11 +37,27 @@ class Pledge(db.Model):
   id = db.Column(db.Integer, primary_key=True, unique=True)
   name = db.Column(db.String(100))
   major = db.Column(db.String(100))
-  hometown = db.Column(db.String(100))
+  year = db.Column(db.String(10))
 
-  def __init__(self, name, major, hometown):
+  def __init__(self, name, major, year):
     self.name = name
     self.major = major
-    self.hometown = hometown
+    self.year = year
 
-  
+  @classmethod
+  def add_pledge(cls, name, major, year):
+    """
+    Creates a new pledge object given the parameters and commits to the database.
+    """
+    new_pledge = Pledge(name, major, year)
+    db.session.add(new_pledge)
+    db.session.commit()
+    return new_pledge.id
+
+  @classmethod
+  def get_pledge_by_name(cls, name):
+    """
+    Given a pledge_id, return the associated pledge object.
+    """
+    return db.session.query(Pledge).filter(Pledge.name == name).first()
+

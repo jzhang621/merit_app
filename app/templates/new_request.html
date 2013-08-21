@@ -1,12 +1,59 @@
 {% extends "layout.html" %}
 
+
 {% block head %}
   {{ super() }}
   <link href="../static/css/new_request.css" rel="stylesheet">
+  <script src="../static/js/new_request.js"></script>
 {% endblock %}
+
+{% block title %}{{ page_title }}{% endblock title %}
 
 {% block page %}
-  <h1> FUCK YOU </h1>
+<form>
+  <fieldset>
+    <div class="form-body">
+
+      <div class="span3 offset2 form-left">
+        <label>Your Name</label>
+        <input type="text" id="name">
+
+        <div id="justification">
+          <label>Justification</label>
+          <textarea rows="4" id="justification"></textarea>
+        </div>
+
+      </div>
+      
+      <div class="span3 offset1 form-right">
+        <label>Pledge Name</label>
+        <input type="text" id="pledge-name">
+
+        <label>Type (Merit or Demerit)</label>
+        <input type="text" id="type">
+
+        <label>Suggested Value</label>
+        <input type="text" id="suggested-value">
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="span4 offset5">
+        <button id="submit-button" type="submit" class="btn btn-primary">
+          Submit
+        </button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>
 {% endblock %}
 
-
+{% block javascript %}
+<script>
+  $(document).ready( function() {
+    submitNewRequest();
+  });
+</script>
+{% endblock %}

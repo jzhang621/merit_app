@@ -14,19 +14,23 @@
   <body>
 
     <div class="container">
-      <div class="masthead">
+      <div class="content">
 
-        {% block title %}        
-        <div class="row">
+        {% block header %}        
+        <div class="row header">
           <div class="span12" id="page-title">
-            <h1>Merit Portal</hl>
-              <div class="btn-group">
+            <div class="row">
+              <div class="span8">
+                <h1>{% block title %}{% endblock title %}</h1>
+              </div>
+              <div class="span3 btn-group pull-right">
                 <button class="btn btn-info">Summary</button>
                 <button class="btn btn-info">New Request</button>
               </div>
+            </div>
           </div>
         </div>
-        {% endblock title %}
+        {% endblock header %}
 
         <div class="row page">
           <div class="span12">
@@ -58,5 +62,8 @@
     </div>
 
   </body>
+
+  {% block javascript %}
+  {% endblock %}
 
 </HTML>
