@@ -2,28 +2,35 @@
 
 {% block head %}
   {{ super() }}
-  <link href="../static/css/review.css">
-  <script src="../static/js/review.js"></script>
+  <link href="../static/css/review.css" rel="stylesheet">
   <link href="../static/css/table.css" rel="stylesheet">
+  <script src="../static/js/review.js"></script>
 {% endblock head %}
+
+{% block title %}
+  {{ super() }}
+  <small>Click on a value to edit</small>
+{% endblock title %}
 
 {% block page %}
 <table class="table table-striped table-bordered table-condensed" id="approved-table">
   <thead>
     <tr>
-      <th class="small-column">Approve</th>
+      <th class="tiny-column"></th>
       <th class="small-column">Date</th>
-      <th class="medium-column">Assigned By</th>
+      <th class="small-column">Brother</th>
+      <th class="small-column">Pledge</th>
       <th class="small-column">Value</th>
       <th>Reason</th>
     </tr>
   </thead>
   <tbody>
     {% for r in pending %}
-    <tr>
+    <tr value="{{ r.id }}">
       <td><input type="checkbox"></td>
       <td>{{ r.date | convert_date }}</td>
       <td>{{ r.assignee }}</td>
+      <td>{{ r.pledge_id | id_to_name }}</td>
       <td contenteditable="true">{{ r.suggested_value | round }}</td>
       <td>{{ r.reason }}</td>
     </tr>

@@ -2,7 +2,7 @@ import datetime
 
 from flask import Flask, render_template, request
 
-from models import db, Record, Pledge
+from models import db, Record, Pledge, pledge_id_to_name
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:padres100@localhost:3306/merits'
 
@@ -25,6 +25,11 @@ def convert_date_filter(date):
 @app.template_filter('round')
 def round_value(value):
   return round(value, 3)
+
+@app.template_filter('id_to_name')
+def id_to_name(pledge_id):
+  pledge_map = pledge_id_to_name()
+  return pledge_map[pledge_id]
 
 
 ### ---- VIEWS ---- ###

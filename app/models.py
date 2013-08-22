@@ -93,3 +93,18 @@ class Pledge(db.Model):
     Returns all pledges currently registered in the pledges database.
     """
     return db.session.query(Pledge).all()
+
+
+# TODO Cache this method
+def pledge_id_to_name():
+  """
+  Returns a dictionary mapping pledge_id's to pledge names
+  """
+  pledge_map = {}
+  pledges = Pledge.get_all_pledges()
+  
+  for p in pledges:
+    pledge_map[p.id] = p.name
+
+  return pledge_map
+

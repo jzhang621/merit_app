@@ -1,5 +1,9 @@
 .small-column {
-  width: 10%;
+  width: 12%;
+}
+
+.tiny-column {
+  width: 3%;
 }
 
 .medium-column {
