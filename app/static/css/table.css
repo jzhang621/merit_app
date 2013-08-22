@@ -6,6 +6,14 @@
   width: 3%;
 }
 
+.value-column {
+  width: 10%;
+}
+
 .medium-column {
   width: 18%;
+}
+
+.page {
+  margin-top: 25px;
 }

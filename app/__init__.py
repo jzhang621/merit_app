@@ -1,12 +1,14 @@
 import datetime
+import json
 
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 
 from models import db, Record, Pledge, pledge_id_to_name
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:padres100@localhost:3306/merits'
-
 db.init_app(app)
+
 
 @app.context_processor
 def register_pledges():
@@ -21,10 +23,6 @@ def first_name_filter(s):
 @app.template_filter('convert_date')
 def convert_date_filter(date):
   return str(date)
-
-@app.template_filter('round')
-def round_value(value):
-  return round(value, 3)
 
 @app.template_filter('id_to_name')
 def id_to_name(pledge_id):
@@ -101,6 +99,9 @@ def get_pledge_report(pledge):
 
 @app.route('/summary')
 def get_merit_summary():
+  """
+  Render the summary page.
+  """
   title = 'Summary'
   return render_template('summary.html', page_title=title)
 
@@ -111,6 +112,26 @@ def render_review_page():
   pending = Record.get_all_pending_records()
   return render_template('review.html', page_title=title, pending=pending)
 
+
+@app.route('/approve_requests', methods=['POST'])
+def approve_requests():
+  """
+  Approve or reject the requests as specified by request_id.
+
+  1) Approved requests are mapped from a request_id to the approved value of the request.
+  2) Rejected requests are identified by a request_id only.
+  """
+  approved = json.loads((request.form['approved']))
+  for request_id in approved:
+    value = float(approved[request_id])
+    Record.approve_request(int(request_id), value)
+
+  rejected = request.form['rejected'].split(',')
+  for request_id in rejected:
+    if request_id:
+      Record.reject_request(request_id)
+
+  return jsonify(success=1)
 
 @app.route('/test')
 def test():

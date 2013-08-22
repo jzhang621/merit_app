@@ -6,7 +6,7 @@ class Record(db.Model):
   __tablename__ = 'records'
   id = db.Column(db.Integer, primary_key=True)
   assignee = db.Column(db.String(100))
-  date = db.Column(db.DateTime(timezone=True))
+  date = db.Column(db.Date)
   suggested_value = db.Column(db.Float(asdecimal=True))
   reason = db.Column(db.String(1000))
   pledge_id = db.Column(db.Integer)
@@ -14,7 +14,7 @@ class Record(db.Model):
   approved = db.Column(db.Boolean)
   value = db.Column(db.Float(asdecimal=True))
 
-  def __init__(self, assignee, date, suggested_value, reason, pledge_id, reviewed=False, approved=False, value=None):
+  def __init__(self, assignee, date, suggested_value, reason, pledge_id, reviewed=False, approved=False, value=None): 
     self.assignee = assignee
     self.date = date
     self.suggested_value = suggested_value
@@ -55,6 +55,42 @@ class Record(db.Model):
     """
     return db.session.query(Record).filter(Record.reviewed == False).all()
 
+  @classmethod
+  def approve_request(cls, request_id, new_value):
+    """
+    Approves an entry in the records table with the new value.
+    """
+    # first modify the reviewed, approved, and value fields
+    record = db.session.query(Record) \
+              .filter(Record.id == request_id) \
+              .first()
+
+    record.reviewed = True
+    record.approved = True
+    record.value = new_value
+
+    pledge = db.session.query(Pledge) \
+               .filter(Pledge.id == record.pledge_id) \
+               .first()
+
+    pledge.value += new_value
+
+    db.session.commit()
+ 
+  @classmethod
+  def reject_request(cls, request_id):
+    """
+    Rejects an entry in the records table by setting approved to false and reviewed to true.
+    """
+    record = db.session.query(Record) \
+              .filter(Record.id == request_id) \
+              .first()
+
+    record.reviewed = True
+    record.approved = False
+  
+    db.session.commit()
+
 
 class Pledge(db.Model):
   __tablename__ = 'pledges'
@@ -62,7 +98,7 @@ class Pledge(db.Model):
   name = db.Column(db.String(100))
   major = db.Column(db.String(100))
   year = db.Column(db.String(10))
-  value = db.Column(db.Integer)
+  value = db.Column(db.Float())
 
   def __init__(self, name, major, year, value=0):
     self.name = name

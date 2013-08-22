@@ -20,23 +20,32 @@
       <th class="small-column">Date</th>
       <th class="small-column">Brother</th>
       <th class="small-column">Pledge</th>
-      <th class="small-column">Value</th>
+      <th class="value-column">Value</th>
       <th>Reason</th>
     </tr>
   </thead>
   <tbody>
     {% for r in pending %}
-    <tr value="{{ r.id }}">
-      <td><input type="checkbox"></td>
+    <tr class="request">
+      <td><input type="checkbox" request-id="{{ r.id }}"></td>
       <td>{{ r.date | convert_date }}</td>
       <td>{{ r.assignee }}</td>
       <td>{{ r.pledge_id | id_to_name }}</td>
-      <td contenteditable="true">{{ r.suggested_value | round }}</td>
+      <td contenteditable="true" class="value">{{ r.suggested_value | round(3, 'common') }}</td>
       <td>{{ r.reason }}</td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
 
+<button id="submit-button" type="submit" type="btn btn-submit">Approve Selected Requests</button>
+
 {% endblock page %}
 
+{% block javascript %}
+<script>
+  $(document).ready( function() {
+    approveRequests();
+  });
+</script>
+{% endblock %}

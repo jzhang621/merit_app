@@ -42,7 +42,7 @@
         <tr>
           <td>{{ r.date | convert_date }}</td>
           <td>{{ r.assignee }}</td>
-          <td>{{ r.value | round }}</td>
+          <td>{{ r.value | round(3, 'common') }}</td>
           <td>{{ r.reason }}</td>
         </tr>
         {% endfor %}
