@@ -103,8 +103,8 @@ def get_merit_summary():
 @app.route('/review')
 def render_review_page():
   title = 'Review'
-  records = Record.get_all_pending_records()
-  return render_template('review.html', page_title=title, records=records)
+  pending = Record.get_all_pending_records()
+  return render_template('review.html', page_title=title, pending=pending)
 
 
 @app.route('/test')
