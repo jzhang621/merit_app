@@ -1,19 +1,12 @@
-.btn-group {
-  margin-top: 23px;
-  margin-left: 20px;
-  float: right;
+
+
+#page-title {
+  margin-top: 70px;
 }
 
 .page {
-  min-height: 550px;
-}
-
-#page-title {
-  margin-top: 35px;
-}
-
-.navbar .navbar-inner {
-  padding: 0;
+  margin: 40px 0px;
+  padding-bottom: 20px;
 }
 
 .navbar .nav {
@@ -33,13 +26,4 @@
   text-align: center;
   border-left: 1px solid rgba(255,255,255,.75);
   border-right: 1px solid rgba(0,0,0,.1);
-}
-                                                                                    .navbar .nav li:first-child a {
-  border-left: 0;
-  border-radius: 3px 0 0 3px;
-}
-
-.navbar .nav li:last-child a {
-  border-right: 0;
-  border-radius: 0 3px 3px 0;
 }

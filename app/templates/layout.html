@@ -13,52 +13,45 @@
 
   <body>
 
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+
+          <a class="brand" href="/new_request">Merits</a>
+          <div class="btn-group pull-right">
+            <a class="btn" href="/summary">Summary</a>
+            <a class="btn" href="/new_request">New Request</a>
+            <a class="btn" href="/review_requests">Review</a> 
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
     <div class="container">
       <div class="content">
+        <h1 id="page-title">{% block title %}{% endblock title %}</h1>
 
-        {% block header %}        
-        <div class="row header">
-          <div class="span12" id="page-title">
-            <div class="row">
-              <div class="span5">
-                <h1>{% block title %}{% endblock title %}</h1>
-              </div>
-              <div class="btn-group pull-right">
-                <a href="/summary" class="btn btn-info">Summary</a>
-                <a href="/new_request" class="btn btn-info">New Request</a>
-                <a href="/review_requests" class="btn btn-info">Review Requests</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        {% endblock header %}
-
-        <div class="row page">
-          <div class="span12">
+        <div class="page">
             {% block page %}{% endblock %}
-          </div>
         </div>
 
-        {% block footer %}
-        <div class="row">
-          <div class="span12">
+      </div>
+    </div>
 
-            <div class="navbar">
-              <div class="navbar-inner">
-                <div class="container">
-                  <ul class="nav">
-                    {% for pledge in pledges %}
-                    <li><a href="{{ pledge.name }}">{{ pledge.name | first_name }}</a></li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </div>
 
-          </div>
+    <div class="navbar navbar-fixed-bottom">
+      <div class="navbar-inner">
+        <div class="container">
+
+          <ul class="nav">
+            <li><a href="/summary" class="brand">Pledges</a></li>
+            {% for pledge in pledges %}
+            <li><a href="{{ pledge.name }}">{{ pledge.name | first_name }}</a></li>
+            {% endfor %}
+          </ul>
+
         </div>
-        {% endblock %}
-
       </div>
     </div>
 
