@@ -14,8 +14,6 @@ var submitNewRequest = function() {
     type = $('#type').val();
     suggestedValue = $('#suggested-value').val();
 
-    console.log('Suggested Value: ', suggestedValue);
-
     if (pledgeName == '' || name == '') {
       alert('Please provide valid names');
     }

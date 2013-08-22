@@ -48,6 +48,13 @@ class Record(db.Model):
     """
     return db.session.query(Record).filter(Record.pledge_id == pledge_id).all()
 
+  @classmethod
+  def get_all_pending_records(cls):
+    """
+    Returns all the requests that are pending approval
+    """
+    return db.session.query(Record).filter(Record.reviewed == False).all()
+
 
 class Pledge(db.Model):
   __tablename__ = 'pledges'

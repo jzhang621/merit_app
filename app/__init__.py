@@ -18,7 +18,6 @@ def register_pledges():
 def first_name_filter(s):
   return s.split(' ')[0]
 
-
 @app.template_filter('convert_date')
 def convert_date_filter(date):
   return str(date)
@@ -91,7 +90,7 @@ def get_pledge_report(pledge):
 
   approved = [r for r in records if r.approved]
   pending = [r for r in records if not r.reviewed]
-  rejected = [r for r in records if not r.approved and r.reviewed]
+  rejected = [r for r in records if r.reviewed and not r.approved]
   return render_template('pledge.html', page_title=title, approved=approved, pending=pending, rejected=rejected)
 
 
@@ -104,7 +103,9 @@ def get_merit_summary():
 @app.route('/review')
 def render_review_page():
   title = 'Review'
-  return render_template('review.html', page_title=title)
+  records = Record.get_all_pending_records()
+  return render_template('review.html', page_title=title, records=records)
+
 
 @app.route('/test')
 def test():
