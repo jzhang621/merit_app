@@ -79,7 +79,7 @@ def commit_pledge():
   return '<div>{0}</div>'.format(pledge_id)
 
 
-@app.route('/<pledge>')
+@app.route('/report/<pledge>')
 def get_pledge_report(pledge):
   """
   Render the merit report for the given pledge
@@ -89,9 +89,10 @@ def get_pledge_report(pledge):
   pledge_id = Pledge.get_pledge_by_name(pledge).id
   records = Record.get_records_by_pledge(pledge_id)     
 
-  approved = [r for r in records if r.reviewed]
+  approved = [r for r in records if r.approved]
   pending = [r for r in records if not r.reviewed]
-  return render_template('pledge.html', page_title=title, approved=approved, pending=pending)
+  rejected = [r for r in records if not r.approved and r.reviewed]
+  return render_template('pledge.html', page_title=title, approved=approved, pending=pending, rejected=rejected)
 
 
 @app.route('/summary')

@@ -14,6 +14,9 @@
   <li>
     <a href="#pending" data-toggle="tab">Pending Requests</a>
   </li>
+  <li>
+    <a href="#rejected" data-toggle="tab">Rejected Requests</a>
+  </li>
 </ul>
 
 <div class="tab-content">
@@ -42,6 +45,29 @@
   </div>
 
   <div class="tab-pane" id="pending">
+    <table class="table table-striped table-bordered table-condensed" id="pending-table">
+      <thead>
+        <tr>
+          <th class="small-column">Date</th>
+          <th class="medium-column">Assigned By</th>
+          <th class="medium-column">Suggested Value</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in pending %}
+        <tr value={{ r.id }}>
+          <td>{{ r.date | convert_date }}</td>
+          <td>{{ r.assignee }}</td>
+          <td>{{ r.suggested_value | round }}</td>
+          <td>{{ r.reason }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tab-pane" id="rejected">
     <table class="table table-striped table-bordered table-condensed" id="pending-table">
       <thead>
         <tr>

@@ -55,11 +55,13 @@ class Pledge(db.Model):
   name = db.Column(db.String(100))
   major = db.Column(db.String(100))
   year = db.Column(db.String(10))
+  value = db.Column(db.Integer)
 
-  def __init__(self, name, major, year):
+  def __init__(self, name, major, year, value=0):
     self.name = name
     self.major = major
     self.year = year
+    self.value = value
 
   @classmethod
   def add_pledge(cls, name, major, year):

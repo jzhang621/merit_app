@@ -46,7 +46,7 @@
           <ul class="nav">
             <li><a href="/summary" class="brand">Pledges</a></li>
             {% for pledge in pledges %}
-            <li><a href="{{ pledge.name }}">{{ pledge.name | first_name }}</a></li>
+            <li><a href="{{ "/report/" ~ pledge.name }}">{{ pledge.name | first_name }}</a></li>
             {% endfor %}
           </ul>
 
