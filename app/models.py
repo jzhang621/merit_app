@@ -74,7 +74,7 @@ class Pledge(db.Model):
   @classmethod
   def get_pledge_by_name(cls, name):
     """
-    Given a pledge_id, return the associated pledge object.
+    Given a pledge name, return the associated pledge object.
     """
     return db.session.query(Pledge).filter(Pledge.name == name).first()
 

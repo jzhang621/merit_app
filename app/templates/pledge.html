@@ -29,12 +29,12 @@
         </tr>
       </thead>
       <tbody>
-        {% for i in range(10) %}
+        {% for r in approved %}
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{ r.date | convert_date }}</td>
+          <td>{{ r.assignee }}</td>
+          <td>{{ r.value | round }}</td>
+          <td>{{ r.reason }}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -52,12 +52,12 @@
         </tr>
       </thead>
       <tbody>
-        {% for i in range(10) %}
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+        {% for r in pending %}
+        <tr value={{ r.id }}>
+          <td>{{ r.date | convert_date }}</td>
+          <td>{{ r.assignee }}</td>
+          <td>{{ r.suggested_value | round }}</td>
+          <td>{{ r.reason }}</td>
         </tr>
         {% endfor %}
       </tbody>

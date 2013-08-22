@@ -19,6 +19,15 @@ def first_name_filter(s):
   return s.split(' ')[0]
 
 
+@app.template_filter('convert_date')
+def convert_date_filter(date):
+  return str(date)
+
+@app.template_filter('round')
+def round_value(value):
+  return round(value, 3)
+
+
 ### ---- VIEWS ---- ###
 
 @app.route('/')
@@ -39,8 +48,8 @@ def commit_request():
   name = request.form['name']
   justification = request.form['justification']
   pledge_name = request.form['pledgeName'] 
-  suggested_value = float(request.form['suggestedValue'])
-  now = datetime.datetime.now() 
+  suggested_value = request.form['suggestedValue']
+  now = datetime.date.today() 
 
   pledge_id = Pledge.get_pledge_by_name(pledge_name).id
 
@@ -76,7 +85,13 @@ def get_pledge_report(pledge):
   Render the merit report for the given pledge
   """
   title = pledge
-  return render_template('pledge.html', page_title=title)
+
+  pledge_id = Pledge.get_pledge_by_name(pledge).id
+  records = Record.get_records_by_pledge(pledge_id)     
+
+  approved = [r for r in records if r.reviewed]
+  pending = [r for r in records if not r.reviewed]
+  return render_template('pledge.html', page_title=title, approved=approved, pending=pending)
 
 
 @app.route('/summary')
