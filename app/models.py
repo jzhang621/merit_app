@@ -25,11 +25,28 @@ class Record(db.Model):
     self.value = value
 
   @classmethod
+  def add_record(cls, assignee, date, suggested_value, reason, pledge_id):
+    """
+    Creates a new record object with the given parameters and commits to the database.
+    """
+    new_record = Record(assignee, date, suggested_value, reason, pledge_id)
+    db.session.add(new_record) 
+    db.session.commit() 
+    return new_record.id
+  
+  @classmethod
   def get_all_records(cls):
     """
     Retrieves all records from the Records database for display on the front-end.
     """
     return db.session.query(Record).all()
+
+  @classmethod
+  def get_records_by_pledge(cls, pledge_id):
+    """
+    Returns all the merits or demerits assigned to the given pledge.
+    """
+    return db.session.query(Record).filter(Record.pledge_id == pledge_id).all()
 
 
 class Pledge(db.Model):
@@ -61,3 +78,9 @@ class Pledge(db.Model):
     """
     return db.session.query(Pledge).filter(Pledge.name == name).first()
 
+  @classmethod
+  def get_all_pledges(cls):
+    """
+    Returns all pledges currently registered in the pledges database.
+    """
+    return db.session.query(Pledge).all()

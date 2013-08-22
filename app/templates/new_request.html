@@ -4,7 +4,9 @@
 {% block head %}
   {{ super() }}
   <link href="../static/css/new_request.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
   <script src="../static/js/new_request.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 {% endblock %}
 
 {% block title %}{{ page_title }}{% endblock title %}
@@ -18,7 +20,7 @@
         <label>Your Name</label>
         <input type="text" id="name">
 
-        <div id="justification">
+        <div id="div-justification">
           <label>Justification</label>
           <textarea rows="4" id="justification"></textarea>
         </div>
@@ -27,7 +29,7 @@
       
       <div class="span3 offset1 form-right">
         <label>Pledge Name</label>
-        <input type="text" id="pledge-name">
+        <input type="text" id="pledge-name" class="ui-autocomplete-input" autocomplete="off">
 
         <label>Type (Merit or Demerit)</label>
         <input type="text" id="type">
@@ -54,6 +56,7 @@
 <script>
   $(document).ready( function() {
     submitNewRequest();
+    registerAutoComplete();
   });
 </script>
 {% endblock %}

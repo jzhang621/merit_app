@@ -20,12 +20,13 @@
         <div class="row header">
           <div class="span12" id="page-title">
             <div class="row">
-              <div class="span8">
+              <div class="span5">
                 <h1>{% block title %}{% endblock title %}</h1>
               </div>
-              <div class="span3 btn-group pull-right">
+              <div class="btn-group pull-right">
                 <a href="/summary" class="btn btn-info">Summary</a>
                 <a href="/new_request" class="btn btn-info">New Request</a>
+                <a href="/review_requests" class="btn btn-info">Review Requests</a>
               </div>
             </div>
           </div>
@@ -47,7 +48,7 @@
                 <div class="container">
                   <ul class="nav">
                     {% for pledge in pledges %}
-                    <li><a href="#">{{ pledge }}</a></li>
+                    <li><a href="{{ pledge.name }}">{{ pledge.name | first_name }}</a></li>
                     {% endfor %}
                   </ul>
                 </div>

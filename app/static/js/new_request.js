@@ -33,10 +33,37 @@ var submitNewRequest = function() {
       },
       dataType: 'html',
       success: function() {
-       console.log("commit successful");
+        $('#name').val('');
+        $('#justification').val('');
+        $('#pledge-name').val('');
+        $('#type').val('');
+        $('#suggested-value').val('');
       } 
     });
     
   });
 
-}
+};
+
+var registerAutoComplete = function() {
+
+  var pledges = [
+    'Albert Hu',
+    'Amy Chiang',
+    'Andre King',
+    'Betty Hu',
+    'Chris Santiago',
+    'Daniel Kang',
+    'Gabe Kauffman',
+    'Julia Li',
+    'Kai Li',
+    'Ling Yeung',
+    'Matt Chiang',
+    'Nicole Amira'
+  ];
+
+  $('#pledge-name').autocomplete({
+    source: pledges
+  });
+
+};
