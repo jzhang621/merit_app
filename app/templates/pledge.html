@@ -5,6 +5,11 @@
   <link href="../static/css/pledge.css" rel="stylesheet">
 {% endblock %}
 
+{% block title %} 
+  {{ super() }} 
+  <small>Total: </small>
+{% endblock title %}
+
 {% block page %}
 
 <ul class="nav nav-tabs" data-tabs="tabs">
