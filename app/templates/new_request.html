@@ -9,8 +9,6 @@
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 {% endblock %}
 
-{% block title %}{{ page_title }}{% endblock title %}
-
 {% block page %}
 <form>
   <fieldset>
@@ -26,7 +24,7 @@
         </div>
 
       </div>
-      
+
       <div class="span3 offset1 form-right">
         <label>Pledge Name</label>
         <input type="text" id="pledge-name" class="ui-autocomplete-input" autocomplete="off">
@@ -40,11 +38,15 @@
 
     </div>
 
-    <div class="row">
-      <div class="span4 offset5">
-        <button id="submit-button" type="submit" class="btn btn-primary">
-          Submit
-        </button>
+    <div class="span4 offset5">
+      <button id="submit-button" type="submit" class="btn btn-primary">
+        Submit
+      </button>
+    </div>
+
+    <div class="span7 offset2">
+      <div id="message">
+        <p></p>
       </div>
     </div>
 

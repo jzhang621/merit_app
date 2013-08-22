@@ -14,11 +14,11 @@ var submitNewRequest = function() {
     type = $('#type').val();
     suggestedValue = $('#suggested-value').val();
 
+    console.log('Suggested Value: ', suggestedValue);
+
     if (pledgeName == '' || name == '') {
       alert('Please provide valid names');
     }
-
-    //TODO ensure that pledgeName is one of the valid pledgeNames 
 
     $.ajax({
       url: '/commit_request',
@@ -32,12 +32,19 @@ var submitNewRequest = function() {
         'suggestedValue': suggestedValue
       },
       dataType: 'html',
-      success: function() {
+      beforeSend: function() {
+        $('#message').hide();
+        $('#message p').text('');
+      },
+      success: function(data) {
         $('#name').val('');
         $('#justification').val('');
         $('#pledge-name').val('');
         $('#type').val('');
         $('#suggested-value').val('');
+
+        $('#message p').text(data);
+        $('#message').show();
       } 
     });
     

@@ -5,29 +5,65 @@
   <link href="../static/css/pledge.css" rel="stylesheet">
 {% endblock %}
 
-{% block title %}{{ page_title }}{% endblock title %}
-
 {% block page %}
-  <table class="table table-striped table-bordered table-condensed" id="report-table">
-    <thead>
-      <tr>
-        <th class="small-column">Date</th>
-        <th class="medium-column">Assigned By</th>
-        <th class="small-column">Value</th>
-        <th>Reason</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for i in range(10) %}
-      <tr>
-        <td> {{ i }} </td>
-        <td> {{ i }} </td>
-        <td> {{ i }} </td>
-        <td> {{ i }} </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-        
-  </table>
+
+<ul class="nav nav-tabs" data-tabs="tabs">
+  <li class="active">
+    <a href="#approved" data-toggle="tab">Approved Requests</a>
+  </li>
+  <li>
+    <a href="#pending" data-toggle="tab">Pending Requests</a>
+  </li>
+</ul>
+
+<div class="tab-content">
+
+  <div class="tab-pane active" id="approved">
+    <table class="table table-striped table-bordered table-condensed" id="approved-table">
+      <thead>
+        <tr>
+          <th class="small-column">Date</th>
+          <th class="medium-column">Assigned By</th>
+          <th class="small-column">Value</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in range(10) %}
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tab-pane" id="pending">
+    <table class="table table-striped table-bordered table-condensed" id="pending-table">
+      <thead>
+        <tr>
+          <th class="small-column">Date</th>
+          <th class="medium-column">Assigned By</th>
+          <th class="medium-column">Suggested Value</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in range(10) %}
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</div>
 {% endblock %}
 

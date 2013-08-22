@@ -39,14 +39,14 @@ def commit_request():
   name = request.form['name']
   justification = request.form['justification']
   pledge_name = request.form['pledgeName'] 
-  suggested_value = request.form['suggestedValue']
+  suggested_value = float(request.form['suggestedValue'])
   now = datetime.datetime.now() 
 
   pledge_id = Pledge.get_pledge_by_name(pledge_name).id
 
   record_id = Record.add_record(name, now, suggested_value, justification, pledge_id)
-  return '<div>{0}</div>'.format(record_id)
- 
+  return 'Request Successfully Submited' 
+
 
 @app.route('/register_pledge')
 def render_register_pledge_page():
@@ -84,6 +84,11 @@ def get_merit_summary():
   title = 'Summary'
   return render_template('summary.html', page_title=title)
 
+
+@app.route('/review')
+def render_review_page():
+  title = 'Review'
+  return render_template('review.html', page_title=title)
 
 @app.route('/test')
 def test():

@@ -1,5 +1,3 @@
-
-
 .form-body button {
   margin-top: 15px;
 }
@@ -14,7 +12,19 @@
   text-align: center;
 }
 
+#message {
+  text-align: center;
+  display: None;
+  font-size: 25px;
+  margin-top: 55px;
+  padding: 10px 0px;
+  border: 1px solid gray;
+}
+
 #submit-button {
   margin-top: 25px;
-  margin-left: 20px;
+}
+
+#page-title {
+  text-align: center;
 }
