@@ -1,14 +1,21 @@
 import datetime
 import json
+import os
 
 from flask import Flask, jsonify, render_template, request
 
 from models import db, Record, Pledge, pledge_id_to_name
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:padres100@localhost:3306/merits'
-db.init_app(app)
 
+if os.environ.get('DATABASE_URL') is None: 
+  app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:padres100@localhost:3306/merits'
+else:
+  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+
+db.init_app(app)
+db.app = app
+db.create_all()
 
 @app.context_processor
 def register_pledges():

@@ -130,7 +130,7 @@ class Pledge(db.Model):
     """
     Returns all pledges currently registered in the pledges database.
     """
-    return db.session.query(Pledge).all()
+    return db.session.query(Pledge).order_by(Pledge.id).all()
 
 
 # TODO Cache this method
