@@ -2,14 +2,14 @@
   margin-top: 15px;
 }
 
-#div-justification {
-  margin-top: 35px;
-}
-
-.form-body label {
-  margin-top: 15px;
+.form-left label {
   font-weight: bold;
   text-align: center;
+  font-size: 18px;
+}
+
+.form-left div {
+  margin-bottom: 35px;
 }
 
 #message {
@@ -21,10 +21,44 @@
   border: 1px solid gray;
 }
 
-#submit-button {
-  margin-top: 25px;
-}
-
 #page-title {
   text-align: center;
+}
+
+#submit-button {
+  margin-top: 10px;
+}
+
+ul li {
+  list-style-type: none;
+  margin-left: -25px;
+  font-size: 15px;
+}
+
+.form-right label {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.checkbox-label {
+  font-weight: normal !important;
+  font-size: 17px !important;
+  margin-top: 8px;
+  margin-bottom: 10px !important;
+  display: block;
+  padding-left: 15px;
+  text-indent: -15px;
+}
+
+.pledge-checkbox {
+  margin-right: 5px !important;
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  margin:0;
+  vertical-align: bottom;
+  position: relative;
+  top: -1px;
+  *overflow: hidden;
 }

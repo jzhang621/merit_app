@@ -1,13 +1,25 @@
 var approveRequests = function() {
-  $('#submit-button').click( function() {
+  $('#submit-button').click( function(e) {
+    e.preventDefault();
+
     var approved = {},
       rejected = [],
+      save,
+      approve,
+      request,
       request_id;
 
     $('.request').each( function() {
-      input = $(this).find('input');
-      request_id = input.attr('request-id'); 
-      if (input.is(':checked')) {
+      request_id = $(this).attr('request-id'); 
+
+      // begin check to see what action to take on request
+      save = $(this).find('.save').is(':checked');
+      if (save) {
+        return true;
+      }
+
+      approve = $(this).find('.approve').is(':checked');
+      if (approve) {
         value = $('.value', this).text();
         approved[request_id] = value;
       } else {
@@ -25,7 +37,9 @@ var approveRequests = function() {
         'rejected': rejected.join(',')
       },
       success: function(data) {
-        console.log('success');
+        data.success.forEach( function(entry) {
+          $('tr[request-id=' + entry + ']').remove();
+        });
       }
     });
   });

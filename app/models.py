@@ -76,6 +76,7 @@ class Record(db.Model):
     pledge.value += new_value
 
     db.session.commit()
+    return record.id
  
   @classmethod
   def reject_request(cls, request_id):
@@ -90,7 +91,7 @@ class Record(db.Model):
     record.approved = False
   
     db.session.commit()
-
+    return record.id
 
 class Pledge(db.Model):
   __tablename__ = 'pledges'
@@ -123,6 +124,7 @@ class Pledge(db.Model):
     """
     return db.session.query(Pledge).filter(Pledge.name == name).first()
 
+  #TODO Cache this method
   @classmethod
   def get_all_pledges(cls):
     """

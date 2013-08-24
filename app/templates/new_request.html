@@ -15,25 +15,33 @@
     <div class="form-body">
 
       <div class="span3 offset2 form-left">
-        <label>Your Name</label>
-        <input type="text" id="name">
+        <div>
+          <label>Your Name</label>
+          <input type="text" id="name">
+        </div>
 
-        <div id="div-justification">
+        <div>
+          <label>Suggested Value</label>
+          <input type="text" id="suggested-value">
+        </div>
+
+        <div>
           <label>Justification</label>
           <textarea rows="4" id="justification"></textarea>
         </div>
-
       </div>
 
       <div class="span3 offset1 form-right">
         <label>Pledge Name</label>
-        <input type="text" id="pledge-name" class="ui-autocomplete-input" autocomplete="off">
-
-        <label>Type (Merit or Demerit)</label>
-        <input type="text" id="type">
-
-        <label>Suggested Value</label>
-        <input type="text" id="suggested-value">
+        <ul>
+        {% for pledge in pledges %}
+        <li>
+          <label class="checkbox-label">
+            <input pledge_id="{{ pledge.id }}" type="checkbox" class="pledge-checkbox"/>{{ pledge.name }}
+          </label>
+        </li>
+        {% endfor %}
+        </ul>
       </div>
 
     </div>
@@ -58,7 +66,6 @@
 <script>
   $(document).ready( function() {
     submitNewRequest();
-    registerAutoComplete();
   });
 </script>
 {% endblock %}

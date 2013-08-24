@@ -13,10 +13,13 @@
 {% endblock title %}
 
 {% block page %}
+<h4>A = Approve | R = Reject | S = Save for Later</h4>
 <table class="table table-striped table-bordered table-condensed" id="approved-table">
   <thead>
     <tr>
-      <th class="tiny-column"></th>
+      <th class="tiny-column">A</th>
+      <th class="tiny-column">R</th>
+      <th class="tiny-column">S</th>
       <th class="small-column">Date</th>
       <th class="small-column">Brother</th>
       <th class="small-column">Pledge</th>
@@ -26,8 +29,10 @@
   </thead>
   <tbody>
     {% for r in pending %}
-    <tr class="request">
-      <td><input type="checkbox" request-id="{{ r.id }}"></td>
+    <tr class="request" request-id="{{ r.id }}"></td>
+      <td><input class="approve" type="checkbox"></td>
+      <td><input class="reject" type="checkbox"></td>
+      <td><input class="save" type="checkbox"></td>
       <td>{{ r.date | convert_date }}</td>
       <td>{{ r.assignee }}</td>
       <td>{{ r.pledge_id | id_to_name }}</td>
@@ -38,7 +43,9 @@
   </tbody>
 </table>
 
-<button id="submit-button" type="submit" type="btn btn-submit">Approve Selected Requests</button>
+<div>
+  <button id="submit-button" type="submit" type="btn btn-submit">Submit</button>
+</div>
 
 {% endblock page %}
 

@@ -49,13 +49,12 @@ def commit_request():
   """
   name = request.form['name']
   justification = request.form['justification']
-  pledge_name = request.form['pledgeName'] 
+  pledges = request.form['pledges'].split(',')
   suggested_value = request.form['suggestedValue']
   now = datetime.date.today() 
 
-  pledge_id = Pledge.get_pledge_by_name(pledge_name).id
-
-  record_id = Record.add_record(name, now, suggested_value, justification, pledge_id)
+  for pledge_id in pledges:
+    record_id = Record.add_record(name, now, suggested_value, justification, pledge_id)
   return 'Request Successfully Submited' 
 
 
@@ -87,14 +86,16 @@ def get_pledge_report(pledge):
   Render the merit report for the given pledge
   """
   title = pledge
+  pledge_info = Pledge.get_pledge_by_name(pledge)
 
-  pledge_id = Pledge.get_pledge_by_name(pledge).id
+  pledge_id = pledge_info.id
+  total = pledge_info.value
   records = Record.get_records_by_pledge(pledge_id)     
 
   approved = [r for r in records if r.approved]
   pending = [r for r in records if not r.reviewed]
   rejected = [r for r in records if r.reviewed and not r.approved]
-  return render_template('pledge.html', page_title=title, approved=approved, pending=pending, rejected=rejected)
+  return render_template('pledge.html', page_title=title, approved=approved, pending=pending, rejected=rejected, pledge_total=total)
 
 
 @app.route('/summary')
@@ -108,6 +109,9 @@ def get_merit_summary():
 
 @app.route('/review')
 def render_review_page():
+  """
+  Render the review page.
+  """
   title = 'Review'
   pending = Record.get_all_pending_records()
   return render_template('review.html', page_title=title, pending=pending)
@@ -121,17 +125,20 @@ def approve_requests():
   1) Approved requests are mapped from a request_id to the approved value of the request.
   2) Rejected requests are identified by a request_id only.
   """
+  processed = []
   approved = json.loads((request.form['approved']))
   for request_id in approved:
     value = float(approved[request_id])
-    Record.approve_request(int(request_id), value)
+    record_id = Record.approve_request(int(request_id), value)
+    processed.append(record_id)
 
   rejected = request.form['rejected'].split(',')
   for request_id in rejected:
     if request_id:
-      Record.reject_request(request_id)
+      record_id = Record.reject_request(request_id)
+      processed.append(record_id)
 
-  return jsonify(success=1)
+  return jsonify(success=processed)
 
 @app.route('/test')
 def test():

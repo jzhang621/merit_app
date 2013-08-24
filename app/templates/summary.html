@@ -4,3 +4,29 @@
   {{ super() }}
   <link href="../static/css/summary.css" rel="stylesheet">
 {% endblock %}
+
+{% block page %}
+<div class="row">
+  <div class="span6">
+    <table class="table table-striped table-bordered table-condensed" id="approved-table">
+      <thead>
+        <tr>
+          <th>Pledge Name</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pledge in pledges %}
+        <tr>
+          <td>{{ pledge.name }}</td>
+          <td>{{ pledge.value }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock page %}
+
+
