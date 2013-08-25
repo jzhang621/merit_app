@@ -1,16 +1,18 @@
 import datetime
+from functools import wraps
 import json
 import os
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, g, jsonify, render_template, redirect, request, url_for
 
 from models import db, Record, Pledge, pledge_id_to_name
 
 app = Flask(__name__)
 
-if os.environ.get('DATABASE_URL') is None: 
+if os.environ.get('DATABASE_URL') is None:
   app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:padres100@localhost:3306/merits'
 else:
+  # heroku configs
   app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
 db.init_app(app)
@@ -19,9 +21,8 @@ db.create_all()
 
 @app.context_processor
 def register_pledges():
-  pledges = Pledge.get_all_pledges() 
+  pledges = Pledge.get_all_pledges()
   return dict(pledges=pledges)
-
 
 @app.template_filter('first_name')
 def first_name_filter(s):
@@ -35,6 +36,13 @@ def convert_date_filter(date):
 def id_to_name(pledge_id):
   pledge_map = pledge_id_to_name()
   return pledge_map[pledge_id]
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        return redirect(url_for('render_login_page', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
 
 
 ### ---- VIEWS ---- ###
@@ -58,11 +66,11 @@ def commit_request():
   justification = request.form['justification']
   pledges = request.form['pledges'].split(',')
   suggested_value = request.form['suggestedValue']
-  now = datetime.date.today() 
+  now = datetime.date.today()
 
   for pledge_id in pledges:
     record_id = Record.add_record(name, now, suggested_value, justification, pledge_id)
-  return 'Request Successfully Submited' 
+  return 'Request Successfully Submited'
 
 
 @app.route('/register_pledge')
@@ -97,7 +105,7 @@ def get_pledge_report(pledge):
 
   pledge_id = pledge_info.id
   total = pledge_info.value
-  records = Record.get_records_by_pledge(pledge_id)     
+  records = Record.get_records_by_pledge(pledge_id)
 
   approved = [r for r in records if r.approved]
   pending = [r for r in records if not r.reviewed]
@@ -115,6 +123,7 @@ def get_merit_summary():
 
 
 @app.route('/review')
+@login_required
 def render_review_page():
   """
   Render the review page.
@@ -147,6 +156,8 @@ def approve_requests():
 
   return jsonify(success=processed)
 
-@app.route('/test')
-def test():
-  0/0
+@app.route('/login')
+def render_login_page():
+  title = 'Login'
+  return render_template('login.html', page_title=title)
+
