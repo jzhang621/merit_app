@@ -3,7 +3,7 @@ from functools import wraps
 import json
 import os
 
-from flask import Flask, g, jsonify, render_template, redirect, request, url_for
+from flask import Flask, jsonify, render_template, redirect, request, url_for
 
 from models import db, Record, Pledge, pledge_id_to_name
 
@@ -73,6 +73,7 @@ def commit_request():
   return 'Request Successfully Submited'
 
 
+@login_required
 @app.route('/register_pledge')
 def render_register_pledge_page():
   """
